@@ -1,6 +1,6 @@
 {
   "name": "gen-qrcode-logo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "qrCode with logo，完全支持node端和前端",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "dist:dev": "rollup --watch -c ./rollup.config.js",
     "dist:server": "cross-env RUN_ENV=server rollup -c ./rollup.config.js",
     "dist:browser": "cross-env RUN_ENV=browser rollup -c ./rollup.browser.config.js",
-    "dist":"npm run dist:server; npm run dist:browser",
+    "dist": "npm run dist:server; npm run dist:browser",
     "test:dev": "webpack-dev-server --config test/module/webpack.dev.conf.js --mode development",
     "publish2npm": "npm run dist && npm publish"
   },
