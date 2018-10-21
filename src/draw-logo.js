@@ -16,8 +16,8 @@ export const drawLogo = ({
   content,
   logo
 }) => {
-  if (!logo) {
-    return
+  if (!logo || (logo && !logo.src)) {
+    return;
   }
 
   const canvasWidth = canvas.width
