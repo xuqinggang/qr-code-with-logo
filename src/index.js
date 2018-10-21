@@ -5,10 +5,9 @@
  * 2018/1/24 herbluo created
  */
 import { toCanvas } from './toCanvas'
-import { toImage } from './toImage'
 
 const QrCodeWithLogo = {
   toCanvas,
-  toImage
+  toDataURL,
 }
 export default QrCodeWithLogo

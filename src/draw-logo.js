@@ -1,3 +1,10 @@
+let createCanvas, loadImage;
+if (RUN_ENV === 'server') {
+  const canvas = require('canvas');
+  createCanvas = canvas.createCanvas;
+  loadImage = canvas.loadImage;
+}
+
 /**
  *
  * helpers
@@ -36,13 +43,6 @@ export const drawLogo = ({
   ctx.fillStyle = bgColor
   ctx.fill()
 
-  // logo
-  const image = new Image()
-  if (crossOrigin || logoRadius) {
-    image.setAttribute('crossOrigin', crossOrigin || 'anonymous')
-  }
-  image.src = logoSrc
-
   // 使用image绘制可以避免某些跨域情况
   const drawLogoWithImage = (image) => {
     ctx.drawImage(image, logoXY, logoXY, logoWidth, logoWidth)
@@ -50,7 +50,13 @@ export const drawLogo = ({
 
   // 使用canvas绘制以获得更多的功能
   const drawLogoWithCanvas = (image) => {
-    const canvasImage = document.createElement('canvas')
+    let canvasImage
+    if (RUN_ENV === 'browser') {
+      canvasImage = document.createElement('canvas')
+    } else {
+      canvasImage = createCanvas(400, 400)
+    }
+
     canvasImage.width = logoXY + logoWidth
     canvasImage.height = logoXY + logoWidth
     canvasImage.getContext('2d').drawImage(image, logoXY, logoXY, logoWidth, logoWidth)
@@ -62,11 +68,25 @@ export const drawLogo = ({
 
   // 将 logo绘制到 canvas上
   return new Promise(((resolve, reject) => {
-    image.onload = () => {
-      logoRadius ? drawLogoWithCanvas(image) : drawLogoWithImage(image)
-      resolve()
+    if (RUN_ENV === 'browser') {
+      // logo
+      const image = new Image()
+      if (crossOrigin || logoRadius) {
+        image.setAttribute('crossOrigin', crossOrigin || 'anonymous')
+      }
+      image.src = logoSrc
+      image.onload = () => {
+        logoRadius ? drawLogoWithCanvas(image) : drawLogoWithImage(image)
+        resolve()
+      }
+    } else {
+      loadImage(logoSrc)
+        .then(image => {
+          logoRadius ? drawLogoWithCanvas(image) : drawLogoWithImage(image)
+          resolve()
+        })
     }
-  }))
+  }));
 }
 
 // copy来的方法，用于绘制圆角

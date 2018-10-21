@@ -20,7 +20,13 @@ export const toImage = (options) => {
         download
       } = options
 
-      image.src = canvas.toDataURL()
+      const dataURL = canvas.toDataURL();
+      if (image.getAttribute('href') !== null || image.getAttribute('xlink:href') !== null) {
+        image.setAttribute('href', dataURL);
+        image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', dataURL);
+      } else {
+        image.src = dataURL;
+      }
 
       if (download !== true && !isFunction(download)) {
         return
