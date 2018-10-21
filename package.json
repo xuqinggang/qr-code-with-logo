@@ -1,14 +1,16 @@
 {
-  "name": "qr-code-with-logo",
-  "version": "1.0.18",
-  "description": "qrCode with logo (image), 无jQuery依赖, 自由调整大小",
+  "name": "qrcode-with-logo",
+  "version": "0.0.1",
+  "description": "qrCode with logo，完全支持node端和前端",
   "repository": {
     "type": "git",
     "url": "https://github.com/HerbLuo/qr-code-with-logo.git"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
+  "browser": {
+    "./lib/index.js": "./lib/browser.js"
+  },
   "module": "lib/index.esm.js",
-  "unpkg": "lib/index.umd.js",
   "typings": "types/index.d.ts",
   "files": [
     "lib",
@@ -16,7 +18,9 @@
   ],
   "scripts": {
     "dist:dev": "rollup --watch -c ./rollup.config.js",
-    "dist": "rollup -c ./rollup.config.js",
+    "dist:server": "cross-env RUN_ENV=server rollup -c ./rollup.config.js",
+    "dist:browser": "cross-env RUN_ENV=browser rollup -c ./rollup.browser.config.js",
+    "dist":"npm run dist:server; npm run dist:browser",
     "test:dev": "webpack-dev-server --config test/module/webpack.dev.conf.js --mode development",
     "publish2npm": "npm run dist && npm publish"
   },
@@ -25,13 +29,16 @@
     "logo",
     "image",
     "qrCode",
-    "size"
+    "node",
+    "toDataURL"
   ],
-  "author": "herbluo",
+  "author": "xuqinggang",
   "license": "MIT",
   "dependencies": {
+    "canvas": "^2.0.1",
     "es6-promise": "^4.2.4",
-    "qrcode": "^1.2.0"
+    "qrcode": "^1.2.0",
+    "rollup-plugin-replace": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -45,8 +52,8 @@
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-uglify": "^3.0.0",
     "url-loader": "^1.1.1",
-    "webpack": "^4.0.0",
-    "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^3.0.0"
+    "webpack": "^4.21.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   }
 }
