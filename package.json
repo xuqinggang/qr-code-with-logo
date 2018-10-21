@@ -1,5 +1,5 @@
 {
-  "name": "qrcode-with-logo",
+  "name": "gen-qrcode-logo",
   "version": "0.0.1",
   "description": "qrCode with logo，完全支持node端和前端",
   "repository": {
