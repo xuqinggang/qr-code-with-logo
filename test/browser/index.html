@@ -4,17 +4,52 @@
   <title>QrCode with Logo browser test</title>
 </head>
 <body>
+<svg width="500" height="500">
+  <image href="" id="image" />
+</svg>
 <canvas id="canvas"></canvas>
 <script src="//www.promisejs.org/polyfills/promise-6.1.0.js"></script>
 <script src="../../lib/qr-code-with-logo.browser.min.js"></script>
 <script>
+  console.time('test');
+  QrCodeWithLogo.toDataURL({
+    content: 'http://blog.cloudself.cn/',
+    width: 380,
+    nodeQrCodeOptions: {
+      margin: 1,
+    },
+    logo: {
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
+    }
+  })
+  .then((dataURL) => {
+    console.log(dataURL);
+  })
+
+  QrCodeWithLogo.toImage({
+    image: document.getElementById('image'),
+    content: 'http://blog.cloudself.cn/',
+    width: 380,
+    nodeQrCodeOptions: {
+      margin: 1,
+    },
+    logo: {
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
+    }
+  })
+  .then(() => {
+    console.timeEnd('test');
+  })
   QrCodeWithLogo.toCanvas({
     canvas: document.getElementById('canvas'),
     content: 'http://blog.cloudself.cn/',
     width: 380,
     logo: {
-      src: 'http://blog.cloudself.cn/images/avatar.png',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
     }
+  })
+  .then(() => {
+    console.timeEnd('test');
   })
 </script>
 </body>
