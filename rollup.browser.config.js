@@ -20,6 +20,10 @@ export default [
         exports: 'named',
         file: 'lib/browser.js'
       },
+      {
+        format: 'es',
+        file: 'lib/browser.esm.js'
+      },
     ],
 
     watch,

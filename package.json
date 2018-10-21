@@ -8,7 +8,8 @@
   },
   "main": "./lib/index.js",
   "browser": {
-    "./lib/index.js": "./lib/browser.js"
+    "./lib/index.js": "./lib/browser.js",
+    "./lib/index.esm.js": "./lib/browser.esm.js"
   },
   "module": "lib/index.esm.js",
   "typings": "types/index.d.ts",
