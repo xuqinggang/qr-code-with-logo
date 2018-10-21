@@ -23,7 +23,7 @@ const body = document.body
       }
     },
     logo: {
-      src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
       logoRadius: 8,
       borderColor: '#d2ffdb'
     }
@@ -53,7 +53,7 @@ const body = document.body
       content: 'http://blog.cloudself.cn',
       width: 1080,
       logo: {
-        src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+        src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
         logoRadius: 8
       }
     })
@@ -82,7 +82,7 @@ const body = document.body
       }
     },
     logo: {
-      src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
       logoRadius: 8,
       borderColor: '#d2ffdb'
     }

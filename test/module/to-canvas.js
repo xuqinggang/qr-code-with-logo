@@ -16,7 +16,7 @@ const body = document.getElementsByTagName('body')[0]
     content: 'http://cdn.blog.cloudself.cn',
     width: 380,
     logo: {
-      src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
     }
   })
   body.appendChild(canvas)
@@ -37,7 +37,7 @@ const body = document.getElementsByTagName('body')[0]
       }
     },
     logo: {
-      src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
       logoRadius: 14,
       borderRadius: 8,
       borderColor: '#BBBBBB99', // IE下 只能使用 6位的 RGB
@@ -56,7 +56,7 @@ const body = document.getElementsByTagName('body')[0]
     width: 380,
     logo: {
       bgColor: 'transparent',
-      src: 'http://closx-shop.oss-cn-qingdao.aliyuncs.com/images/19a4fefb578960a123aa813b28394cb1828162b8.jpg',
+      src: 'https://cdn.blog.cloudself.cn/images/avatar.png',
       logoRadius: 8
     }
   })

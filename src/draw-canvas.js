@@ -1,6 +1,12 @@
 import {promisify} from './utils'
 import QRCode from 'qrcode'
 
+let createCanvas;
+if (RUN_ENV === 'server') {
+  const canvas = require('canvas');
+  createCanvas = canvas.createCanvas;
+}
+
 /**
  *
  * render
@@ -26,7 +32,13 @@ export const renderQrCode = ({
 
 // 得到原QrCode的大小，以便缩放得到正确的QrCode大小
 const getOriginWidth = (content, nodeQrCodeOption) => {
-  const _canvas = document.createElement('canvas')
+  let _canvas;
+  if (RUN_ENV === 'browser') {
+    _canvas = document.createElement('canvas');
+  } else {
+    _canvas = createCanvas(400, 400)
+  }
+
   return toCanvas(_canvas, content, nodeQrCodeOption)
     .then(() => _canvas.width)
 }
