@@ -20,8 +20,11 @@ export const drawLogo = ({
     return;
   }
 
-  const canvasWidth = canvas.width
-  const {
+  const canvasWidth = canvas.width;
+  const canvasHeight = canvas.height;
+  const ctx = canvas.getContext('2d')
+
+  let {
     logoSize = 0.15,
     borderColor,
     bgColor = borderColor || '#ffffff',
@@ -29,23 +32,45 @@ export const drawLogo = ({
     crossOrigin,
     borderRadius = 8,
     logoRadius = 0,
-  } = logo
-  let logoSrc = typeof logo === 'string' ? logo : logo.src
-  let logoWidth = canvasWidth * logoSize
-  let logoXY = canvasWidth * (1 - logoSize) / 2
-  let logoBgWidth = canvasWidth * (logoSize + borderSize)
-  let logoBgXY = canvasWidth * (1 - logoSize - borderSize) / 2
+    logoWidth,
+    logoHeight,
+    borderWidth = 2, // logo border 左右两边大小
+    borderHeight, // logo border 上线两边大小
+  } = logo;
 
-  const ctx = canvas.getContext('2d')
+  let logoSrc = typeof logo === 'string' ? logo : logo.src;
+  // 没有设置logoWidth，则通过logoSize调整
+  logoWidth = logoWidth || canvasWidth * logoSize;
+  logoHeight = logoHeight || logoWidth;
+  let logoX = (canvasWidth - logoWidth) / 2;
+  let logoY = (canvasHeight - logoHeight) / 2;
 
-  // logo 底色
-  canvasRoundRect(ctx)(logoBgXY, logoBgXY, logoBgWidth, logoBgWidth, borderRadius)
-  ctx.fillStyle = bgColor
-  ctx.fill()
+
+  // logo border设置
+  if (borderHeight === undefined) {
+    borderHeight = borderWidth;
+  }
+
+  if (borderWidth !== 0 || borderHeight !== 0) {
+    let logoBgWidth = (borderWidth * 2) + logoWidth;
+    let logoBgHeight = (borderHeight * 2) + logoHeight;
+    let logoBgX = (canvasWidth - logoBgWidth) / 2;
+    let logoBgY = (canvasHeight - logoBgHeight) / 2;
+
+    // logo border 底色
+    canvasRoundRect(ctx)(logoBgX, logoBgY, logoBgWidth, logoBgHeight, borderRadius);
+    ctx.fillStyle = bgColor;
+    ctx.fill();
+  }
+  // logoBgWidth = logoBgWidth || (logoWidth + canvasWidth * borderSize);
+  // logoBgHeight = logoBgHeight || (logoWidth + canvasWidth * borderSize);
+  // let logoBgWidth = canvasWidth * (logoSize + borderSize);
+  // let logoBgXY = canvasWidth * (1 - logoSize - borderSize) / 2;
+
 
   // 使用image绘制可以避免某些跨域情况
   const drawLogoWithImage = (image) => {
-    ctx.drawImage(image, logoXY, logoXY, logoWidth, logoWidth)
+    ctx.drawImage(image, logoX, logoY, logoWidth, logoHeight)
   }
 
   // 使用canvas绘制以获得更多的功能
@@ -57,13 +82,14 @@ export const drawLogo = ({
       canvasImage = createCanvas(400, 400)
     }
 
-    canvasImage.width = logoXY + logoWidth
-    canvasImage.height = logoXY + logoWidth
-    canvasImage.getContext('2d').drawImage(image, logoXY, logoXY, logoWidth, logoWidth)
+    canvasImage.width = logoX + logoWidth;
+    canvasImage.height = logoY + logoHeight;
+    canvasImage.getContext('2d').drawImage(image, logoX, logoY, logoWidth, logoHeight)
 
-    canvasRoundRect(ctx)(logoXY, logoXY, logoWidth, logoWidth, logoRadius)
-    ctx.fillStyle = ctx.createPattern(canvasImage, 'no-repeat')
-    ctx.fill()
+    // 设置logoRadius和logo纹理
+    canvasRoundRect(ctx)(logoX, logoY, logoWidth, logoHeight, logoRadius);
+    ctx.fillStyle = ctx.createPattern(canvasImage, 'no-repeat');
+    ctx.fill();
   }
 
   // 将 logo绘制到 canvas上
