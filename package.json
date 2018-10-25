@@ -19,10 +19,10 @@
   ],
   "scripts": {
     "dist:dev": "rollup --watch -c ./rollup.config.js",
-    "dist:server": "cross-env RUN_ENV=server rollup -c ./rollup.config.js",
-    "dist:browser": "cross-env RUN_ENV=browser rollup -c ./rollup.browser.config.js",
+    "dist:server": "cross-env RUN_ENV=server; rollup -c ./rollup.config.js",
+    "dist:browser": "cross-env RUN_ENV=browser; rollup -c ./rollup.browser.config.js",
     "dist": "npm run dist:server; npm run dist:browser",
-    "test:dev": "webpack-dev-server --config test/module/webpack.dev.conf.js --mode development",
+    "test:dev": "cross-env RUN_ENV=browser; webpack-dev-server --config test/module/webpack.dev.conf.js --mode development",
     "publish2npm": "npm run dist && npm publish"
   },
   "keywords": [

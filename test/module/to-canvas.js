@@ -1,4 +1,6 @@
-import QrCodeWithLogo from '../../lib' // 注意此行不要直接复制，应使用下一行
+// import QrCodeWithLogo from '../../lib' // 注意此行不要直接复制，应使用下一行
+import QrCodeWithLogo from '../../src/browser';
+
 // import QrCodeWithLogo from 'qr-code-with-logo'
 import Promise from 'es6-promise'
 
@@ -41,8 +43,9 @@ const body = document.getElementsByTagName('body')[0]
       logoRadius: 14,
       borderRadius: 8,
       borderColor: '#BBBBBB99', // IE下 只能使用 6位的 RGB
-      borderSize: 0.06 // 边框大小 相对二维码的比例
-    }
+      borderWidth: 4,
+      // borderSize: 0.06 // 边框大小 相对二维码的比例
+    },
   })
   body.appendChild(canvas)
 }

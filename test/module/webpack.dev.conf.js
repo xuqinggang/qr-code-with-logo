@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path')
 
 module.exports = {
@@ -23,6 +24,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      RUN_ENV: JSON.stringify(process.env.RUN_ENV || 'browser'),
+    }),
+  ],
   devServer: {
     hot: false,
     host: 'localhost',

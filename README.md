@@ -1,3 +1,7 @@
+## publish
+npm version patch
+npm publish
+
 ## 带Logo的QR Code(二维码)生成工具  
 
 中文 | [English](./README-en.md)
